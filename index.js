@@ -7,8 +7,8 @@ const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 // middleware
 app.use(cors());
 app.use(express.json());
-// 
-// 
+//
+//
 
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.dyzaf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
 
@@ -28,7 +28,6 @@ async function run() {
     app.get("/visa", async (req, res) => {
       const cursor = visaCollection.find();
       const result = await cursor.toArray();
-      // const result = visaCollection.find().toArray();
       res.send(result);
     });
     //sudu individual email diya jaigula
