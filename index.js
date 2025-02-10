@@ -43,7 +43,7 @@ async function run() {
       console.log(req.params.Visa_type);
       const cursor = visaCollection.find({ Visa_type: req.params.Visa_type });
       const result = await cursor.toArray();
-      // const result = visaCollection.find().toArray();
+      
       res.send(result);
     });
 
