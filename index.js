@@ -28,6 +28,7 @@ async function run() {
     app.get("/visa", async (req, res) => {
       const cursor = visaCollection.find();
       const result = await cursor.toArray();
+      // const result = visaCollection.find().toArray();
       res.send(result);
     });
     //sudu individual email diya jaigula
