@@ -61,7 +61,15 @@ async function run() {
     });
     // apply api
     app.get("/apply", async (req, res) => {
-      const cursor = applyCollection.find();
+      const { searchParams } = req.query;
+      console.log(searchParams);
+      let option = {};
+      if (searchParams) {
+        option = {
+          countryName: { $regex: searchParams, $options: "i" },
+        };
+      }
+      const cursor = applyCollection.find(option);
       const result = await cursor.toArray();
       // const result = visaCollection.find().toArray();
       res.send(result);
