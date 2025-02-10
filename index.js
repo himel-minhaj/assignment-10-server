@@ -36,7 +36,7 @@ async function run() {
       // console.log(req.params.email);
       const cursor = visaCollection.find({ email: req.params.email });
       const result = await cursor.toArray();
-      
+      // const result = visaCollection.find().toArray();
       res.send(result);
     });
     app.get("/visa/findVisa/:Visa_type", async (req, res) => {
