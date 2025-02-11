@@ -31,6 +31,12 @@ async function run() {
       // const result = visaCollection.find().toArray();
       res.send(result);
     });
+    app.get("/visa/find", async (req, res) => {
+      const cursor = visaCollection.find().sort({ $natural: -1 }).limit(6);
+      const result = await cursor.toArray();
+      // const result = visaCollection.find().toArray();
+      res.send(result);
+    });
     //sudu individual email diya jaigula
     app.get("/visa/MyAddedVisas/:email", async (req, res) => {
       // console.log(req.params.email);
@@ -63,10 +69,12 @@ async function run() {
     app.get("/apply", async (req, res) => {
       const { searchParams } = req.query;
       console.log(searchParams);
+      console.log("gmail", req.query.email);
       let option = {};
       if (searchParams) {
         option = {
           countryName: { $regex: searchParams, $options: "i" },
+          email: req.query.email,
         };
       }
       const cursor = applyCollection.find(option);
@@ -75,7 +83,7 @@ async function run() {
       res.send(result);
     });
     app.get("/apply/myvisaApplication/:email", async (req, res) => {
-      console.log(req.params.email);
+      // console.log(req.params.email);
       const cursor = applyCollection.find({ email: req.params.email });
       const result = await cursor.toArray();
       // const result = applyCollection.find().toArray();
@@ -96,7 +104,7 @@ async function run() {
     });
     app.delete("/apply/:id", async (req, res) => {
       const id = req.params.id;
-      console.log(id);
+      // console.log(id);
       const query = { _id: new ObjectId(id) };
       const result = await applyCollection.deleteOne(query);
       res.send(result);
@@ -125,7 +133,7 @@ async function run() {
     });
     app.delete("/visa/:id", async (req, res) => {
       const id = req.params.id;
-      console.log(id);
+      // console.log(id);
       const query = { _id: new ObjectId(id) };
       const result = await visaCollection.deleteOne(query);
       res.send(result);
